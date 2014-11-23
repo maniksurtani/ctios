@@ -22,7 +22,6 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
     var pageData: [AnyObject]
 
-
     override init() {
         pageData = NSDateFormatter().monthSymbols
         super.init()
