@@ -18,7 +18,7 @@
 		9C2132CC19F9ABEE0061B553 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2132CB19F9ABEE0061B553 /* AppDelegate.swift */; };
 		9C2132CE19F9ABEE0061B553 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2132CD19F9ABEE0061B553 /* RootViewController.swift */; };
 		9C2132D019F9ABEE0061B553 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2132CF19F9ABEE0061B553 /* DataViewController.swift */; };
-		9C2132D219F9ABEE0061B553 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2132D119F9ABEE0061B553 /* ModelController.swift */; };
+		9C2132D219F9ABEE0061B553 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2132D119F9ABEE0061B553 /* DataModel.swift */; };
 		9C2132D519F9ABEF0061B553 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C2132D319F9ABEF0061B553 /* Main.storyboard */; };
 		9C2132D719F9ABEF0061B553 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C2132D619F9ABEF0061B553 /* Images.xcassets */; };
 		9C2132DA19F9ABEF0061B553 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C2132D819F9ABEF0061B553 /* LaunchScreen.xib */; };
@@ -52,7 +52,7 @@
 		9C2132CB19F9ABEE0061B553 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C2132CD19F9ABEE0061B553 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		9C2132CF19F9ABEE0061B553 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		9C2132D119F9ABEE0061B553 /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
+		9C2132D119F9ABEE0061B553 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		9C2132D419F9ABEF0061B553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9C2132D619F9ABEF0061B553 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9C2132D919F9ABEF0061B553 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 				9C2132CB19F9ABEE0061B553 /* AppDelegate.swift */,
 				9C2132CD19F9ABEE0061B553 /* RootViewController.swift */,
 				9C2132CF19F9ABEE0061B553 /* DataViewController.swift */,
-				9C2132D119F9ABEE0061B553 /* ModelController.swift */,
+				9C2132D119F9ABEE0061B553 /* DataModel.swift */,
 				9C2132D319F9ABEF0061B553 /* Main.storyboard */,
 				9C2132D619F9ABEF0061B553 /* Images.xcassets */,
 				9C2132D819F9ABEF0061B553 /* LaunchScreen.xib */,
@@ -312,7 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C2132CE19F9ABEE0061B553 /* RootViewController.swift in Sources */,
-				9C2132D219F9ABEE0061B553 /* ModelController.swift in Sources */,
+				9C2132D219F9ABEE0061B553 /* DataModel.swift in Sources */,
 				9C2132D019F9ABEE0061B553 /* DataViewController.swift in Sources */,
 				9C2132CC19F9ABEE0061B553 /* AppDelegate.swift in Sources */,
 			);

@@ -8,39 +8,21 @@
 
 import UIKit
 
-class RootViewController: UIViewController, UIPageViewControllerDelegate {
-
+class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLoginViewDelegate {
+    let dataModel = DataModel()
     var pageViewController: UIPageViewController?
-
+    @IBOutlet var fbLoginView : FBLoginView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Loaded RootVC")
-        // Do any additional setup after loading the view, typically from a nib.
-        // Configure the page view controller and add it as a child view controller.
-        self.pageViewController = UIPageViewController(transitionStyle: .PageCurl, navigationOrientation: .Horizontal, options: nil)
-        self.pageViewController!.delegate = self
-
-        let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
-        let viewControllers: NSArray = [startingViewController]
-        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
-
-        self.pageViewController!.dataSource = self.modelController
-
-        self.addChildViewController(self.pageViewController!)
-        self.view.addSubview(self.pageViewController!.view)
-
-        // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
-        var pageViewRect = self.view.bounds
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            pageViewRect = CGRectInset(pageViewRect, 40.0, 40.0)
-        }
-        self.pageViewController!.view.frame = pageViewRect
-
-        self.pageViewController!.didMoveToParentViewController(self)
-
-        // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
-        self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
+        print("Loaded RootVC - waiting for FB login.")
+        
+        // This is our main entry point.  Load the View as defined in the storyboard, which displays the splash screen + the FB login button, and don't do anything until the user logs in.
+        // We will be notified of the user having logged in by the loginViewShowingLoggedInUser() and loginViewFetchedUserInfo() callbacks, defined in FBLoginViewDelegate which we implement here.
+        // See implementations of these functions below for details.
+        
+        self.fbLoginView.delegate = self
+        self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,18 +30,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    var modelController: ModelController {
-        // Return the model controller object, creating it if necessary.
-        // In more complex implementations, the model controller may be passed to the view controller.
-        if _modelController == nil {
-            _modelController = ModelController()
-        }
-        return _modelController!
-    }
-
-    var _modelController: ModelController? = nil
-
-    // MARK: - UIPageViewController delegate methods
+    // UIPageViewController delegate methods
 
     func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
         if (orientation == .Portrait) || (orientation == .PortraitUpsideDown) || (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
@@ -71,24 +42,66 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
             self.pageViewController!.doubleSided = false
             return .Min
         }
-
-        // In landscape orientation: Set set the spine location to "mid" and the page view controller's view controllers array to contain two view controllers. If the current page is even, set it to contain the current and next view controllers; if it is odd, set the array to contain the previous and current view controllers.
-        let currentViewController = self.pageViewController!.viewControllers[0] as DataViewController
-        var viewControllers: NSArray
-
-        let indexOfCurrentViewController = self.modelController.indexOfViewController(currentViewController)
-        if (indexOfCurrentViewController == 0) || (indexOfCurrentViewController % 2 == 0) {
-            let nextViewController = self.modelController.pageViewController(self.pageViewController!, viewControllerAfterViewController: currentViewController)
-            viewControllers = [currentViewController, nextViewController!]
-        } else {
-            let previousViewController = self.modelController.pageViewController(self.pageViewController!, viewControllerBeforeViewController: currentViewController)
-            viewControllers = [previousViewController!, currentViewController]
-        }
-        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: {done in })
-
-        return .Mid
+        
+        // Still return .Min for now; if we want to do something clever with the UI (split pane view, etc) in Landscape mode, then we could return .Mid instead.
+        return .Min
     }
+    
+    
+    // Facebook Delegate Methods
+    
+    func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
+        println("User Logged In")
+    }
+    
+    func loginViewFetchedUserInfo(loginView : FBLoginView!, user: FBGraphUser) {
+        println("User: \(user)")
+        println("User ID: \(user.objectID)")
+        println("User Name: \(user.name)")
+        var userEmail = user.objectForKey("email") as String
+        println("User Email: \(userEmail)")
+        
+        loadConnectastic(user)
+    }
+    
+    func loginViewShowingLoggedOutUser(loginView : FBLoginView!) {
+        println("User Logged Out")
+    }
+    
+    func loginView(loginView : FBLoginView!, handleError:NSError) {
+        println("Error: \(handleError.localizedDescription)")
+    }
+ 
+    // This function actually starts loading the Connectastic View, and should only be invoked once Facebook details have been obtained.
+    func loadConnectastic(fbUser: FBGraphUser) {
+        println("Loading Connectastic main view")
+        
+        dataModel.setFbUser(fbUser)
+        
+        self.pageViewController = UIPageViewController(transitionStyle: .PageCurl, navigationOrientation: .Horizontal, options: nil)
+        self.pageViewController!.delegate = self
 
+        // Create a new DataViewController
+        let startingViewController: DataViewController = storyboard!.instantiateViewControllerWithIdentifier("DataViewController") as DataViewController
+        startingViewController.initialize(dataModel);
+        
+        let viewControllers: NSArray = [startingViewController]
+        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
 
+        self.addChildViewController(self.pageViewController!)
+        self.view.addSubview(self.pageViewController!.view)
+
+        // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
+        var pageViewRect = self.view.bounds
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            pageViewRect = CGRectInset(pageViewRect, 40.0, 40.0)
+        }
+        
+        self.pageViewController!.view.frame = pageViewRect
+        self.pageViewController!.didMoveToParentViewController(self)
+
+        // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
+        self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
+    }
 }
 
