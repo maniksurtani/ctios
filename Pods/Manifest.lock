@@ -1,13 +1,26 @@
 PODS:
   - Bolts (1.1.3)
+  - Connectastic (0.0.1)
   - Facebook-iOS-SDK (3.20.0):
     - Bolts (~> 1.0)
 
 DEPENDENCIES:
+  - Connectastic (from `https://bitbucket.org/apoorvatyagi/connectastic-endpoints-ios.git`, tag `0.0.1`)
   - Facebook-iOS-SDK (~> 3.20)
+
+EXTERNAL SOURCES:
+  Connectastic:
+    :git: https://bitbucket.org/apoorvatyagi/connectastic-endpoints-ios.git
+    :tag: 0.0.1
+
+CHECKOUT OPTIONS:
+  Connectastic:
+    :git: https://bitbucket.org/apoorvatyagi/connectastic-endpoints-ios.git
+    :tag: 0.0.1
 
 SPEC CHECKSUMS:
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
+  Connectastic: 560edba5b3a8ab2e5b5f52e9c037bd80a8310f46
   Facebook-iOS-SDK: 5854404b4b651f612a8ef79ca06d766858f4cb8e
 
 COCOAPODS: 0.35.0

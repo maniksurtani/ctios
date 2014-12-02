@@ -10,5 +10,8 @@
 #define Connectastic_BridgingHeader_h
 
 #import <FacebookSDK.h>
+#import <GTLEvents.h>
+#import <GTLAuth.h>
+#import <GTLDeviceregistration.h>
 
 #endif

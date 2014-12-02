@@ -53,7 +53,7 @@ typedef enum BFIncludeStatusBarInSize {
 /*!
  The delegate that will be notified when the user navigates back to the referer.
  */
-@property (nonatomic, weak) id<BFAppLinkReturnToRefererViewDelegate> delegate;
+@property (nonatomic, assign) id<BFAppLinkReturnToRefererViewDelegate> delegate;
 
 /*!
  The color of the text label and close button.

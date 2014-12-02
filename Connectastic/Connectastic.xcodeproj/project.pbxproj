@@ -440,6 +440,7 @@
 			baseConfigurationReference = 3F8BDF41C508D0D8170E4505 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/manik/Documents/FacebookSDK,
@@ -461,6 +462,7 @@
 			baseConfigurationReference = 9AF5118F716A38D44882A87E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/manik/Documents/FacebookSDK,
