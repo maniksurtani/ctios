@@ -20,7 +20,7 @@ class DataViewController: UIViewController, FBLoginViewDelegate {
     var dataModel: DataModel? // Make this optional; we will initialize later
 
     override func viewDidLoad() {
-        print("Loaded DataViewController")
+        println("Loaded DataViewController")
         super.viewDidLoad()
         self.fbLoginView.delegate = self
         self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]        
@@ -33,11 +33,13 @@ class DataViewController: UIViewController, FBLoginViewDelegate {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        println("viewWillAppear() hit.");
         if let user: FBGraphUser = self.dataModel?.fbUser {
             dataLabel.text = "Welcome, " + user.first_name
             fbProfilePicView.hidden = false
             dataLabel.hidden = false
             loginMessage.hidden = true
+            saveFbToken()
         } else {
             fbProfilePicView.hidden = true
             dataLabel.hidden = true
@@ -47,6 +49,7 @@ class DataViewController: UIViewController, FBLoginViewDelegate {
     
     func initialize(dataModel: DataModel) {
         self.dataModel = dataModel
+        println("initialize() hit.")
     }
     
     // Facebook Delegate Methods - duplicated from RootViewController.  Sadness!
@@ -74,6 +77,46 @@ class DataViewController: UIViewController, FBLoginViewDelegate {
         dataLabel.hidden = true
         loginMessage.hidden = false
         loginMessage.numberOfLines = 0
+    }
+    
+    //Store the fb token of the current session in the data model
+    func saveFbToken(){
+        var token:String = FBSession.activeSession().accessTokenData.accessToken
+        //println("Current session token:  \(token)")
+        dataModel?.setFbToken(token)
+        
+        loginToConnectastic()
+    }
+    
+    //Login to connectastic using endpoint library
+    func loginToConnectastic(){
+        
+        if dataModel?.fbToken != nil {
+            
+            var service: GTLServiceAuth = GTLServiceAuth()
+            service.retryEnabled = true
+            
+            let request = GTLAuthConnectasticAuthReq()
+            request.fbId = self.dataModel?.fbUser?.objectID.toInt()
+            request.token = self.dataModel?.fbToken
+            
+            let query: GTLQueryAuth = GTLQueryAuth.queryForLoginWithObject(request) as GTLQueryAuth
+            
+            service.executeQuery(query, completionHandler: { (ticket: GTLServiceTicket!, object:AnyObject!, error: NSError!) -> Void in
+                
+                if error != nil {
+                    println("ExecuteQuery: result is nil")
+                    return
+                }
+                
+                let result = object as GTLAuthConnectasticAuthRsp
+                
+                println("\(result.name) has logged into Connectastic. Status: \(result.loggedIn)")
+            })
+        
+            
+        }
+
     }
 }
 

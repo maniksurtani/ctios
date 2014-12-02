@@ -15,6 +15,7 @@ The Model object.  This contains all of the data for a given Connectastic sessio
 
 class DataModel {
     var fbUser: FBGraphUser?
+    var fbToken: String?
     
     init() {
         println("Constructed a data model")
@@ -22,6 +23,10 @@ class DataModel {
     
     func setFbUser(fbUser: FBGraphUser) {
         self.fbUser = fbUser
+    }
+    
+    func setFbToken(fbtoken: String){
+        self.fbToken = fbtoken
     }
 }
 
