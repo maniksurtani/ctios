@@ -1,0 +1,1 @@
+../../../../Connectastic-Endpoints/GTLDeviceregistrationConstants.h

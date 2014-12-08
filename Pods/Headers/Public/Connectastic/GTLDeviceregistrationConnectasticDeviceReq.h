@@ -1,0 +1,1 @@
+../../../../Connectastic-Endpoints/GTLDeviceregistrationConnectasticDeviceReq.h
