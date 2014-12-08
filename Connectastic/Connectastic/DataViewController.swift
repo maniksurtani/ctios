@@ -23,7 +23,7 @@ class DataViewController: UIViewController, FBLoginViewDelegate {
         println("Loaded DataViewController")
         super.viewDidLoad()
         self.fbLoginView.delegate = self
-        self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]        
+        self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]
     }
 
     override func didReceiveMemoryWarning() {

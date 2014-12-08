@@ -1,0 +1,1 @@
+../../../../Connectastic-Endpoints/GTLQueryDeviceregistration.h
