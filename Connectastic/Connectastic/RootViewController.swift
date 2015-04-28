@@ -34,9 +34,9 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLogi
     func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
         if (orientation == .Portrait) || (orientation == .PortraitUpsideDown) || (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
             // In portrait orientation or on iPhone: Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to YES, so set it to NO here.
-            let currentViewController = self.pageViewController!.viewControllers[0] as UIViewController
+            let currentViewController = self.pageViewController!.viewControllers[0] as! UIViewController
             let viewControllers: NSArray = [currentViewController]
-            self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: {done in })
+            self.pageViewController!.setViewControllers(viewControllers as [AnyObject], direction: .Forward, animated: true, completion: {done in })
 
             self.pageViewController!.doubleSided = false
             return .Min
@@ -57,7 +57,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLogi
         println("User: \(user)")
         println("User ID: \(user.objectID)")
         println("User Name: \(user.name)")
-        var userEmail = user.objectForKey("email") as String
+        var userEmail = user.objectForKey("email") as! String
         println("User Email: \(userEmail)")
         
         loadConnectastic(user)
@@ -81,11 +81,11 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLogi
         self.pageViewController!.delegate = self
 
         // Create a new DataViewController
-        let startingViewController: DataViewController = storyboard!.instantiateViewControllerWithIdentifier("DataViewController") as DataViewController
+        let startingViewController: DataViewController = storyboard!.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
         startingViewController.initialize(dataModel);
         
         let viewControllers: NSArray = [startingViewController]
-        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
+        self.pageViewController!.setViewControllers(viewControllers as [AnyObject], direction: .Forward, animated: false, completion: {done in })
 
         self.addChildViewController(self.pageViewController!)
         self.view.addSubview(self.pageViewController!.view)

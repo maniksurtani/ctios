@@ -45,7 +45,7 @@
 /*!
  The delegate that will be notified when the user navigates back to the referer.
  */
-@property (nonatomic, assign) id<BFAppLinkReturnToRefererControllerDelegate> delegate;
+@property (nonatomic, weak) id<BFAppLinkReturnToRefererControllerDelegate> delegate;
 
 /*!
  The BFAppLinkReturnToRefererView this controller is controlling.

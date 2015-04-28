@@ -95,14 +95,14 @@ class DataViewController: UIViewController, FBLoginViewDelegate {
             request.fbId = self.dataModel?.fbUser?.objectID.toInt()
             request.token = self.dataModel?.fbToken
             
-            let query = GTLQueryAuth.queryForLoginWithObject(request) as GTLQueryAuth
+            let query = GTLQueryAuth.queryForLoginWithObject(request) as! GTLQueryAuth
             
             service.executeQuery(query, completionHandler: { (ticket: GTLServiceTicket!, rsp: AnyObject!, error: NSError!) -> Void in
                 if error != nil {
                     println("ExecuteQuery: result is nil")
                     return
                 }
-                let result = rsp as GTLAuthConnectasticAuthRsp
+                let result = rsp as! GTLAuthConnectasticAuthRsp
                 println("\(result.name) has logged into Connectastic. Status: \(result.loggedIn)")
             })
         }
