@@ -1,6 +1,6 @@
 # Connectastic iOS
 
-* Written using [XCode 6.1](https://developer.apple.com/xcode/).  Could use (Jetbrains AppCode)[https://www.jetbrains.com/objc/] instead, but we'd need to use [AppCode 3.1 Early Access](https://confluence.jetbrains.com/display/OBJC/AppCode+EAP) for Swift features.
+* Written using [XCode 6.1](https://developer.apple.com/xcode/).  Could use [Jetbrains AppCode](https://www.jetbrains.com/objc/) instead.
 * Using [CocoaPods](http://cocoapods.org/) to manage dependencies.  See `Podfile` in this directory.
 * See [The CocoaPod Guide](http://guides.cocoapods.org/) to learn how to use Cocoapods.
 * Learning Swift and iOS development using [this tutorial](https://www.bloc.io/tutorials/swiftris-build-your-first-ios-game-with-swift#!/chapters/675).  The [Swift Language Guide](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) is helpful too.
