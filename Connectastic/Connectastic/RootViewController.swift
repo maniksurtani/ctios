@@ -37,9 +37,9 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBSDKL
     func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
         if (orientation == .Portrait) || (orientation == .PortraitUpsideDown) || (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
             // In portrait orientation or on iPhone: Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to YES, so set it to NO here.
-            let currentViewController = self.pageViewController!.viewControllers[0] as! UIViewController
-            let viewControllers: NSArray = [currentViewController]
-            self.pageViewController!.setViewControllers(viewControllers as [AnyObject], direction: .Forward, animated: true, completion: {done in })
+            let currentViewController = self.pageViewController!.viewControllers![0] 
+            let viewControllers = [currentViewController]
+            self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: {done in })
 
             self.pageViewController!.doubleSided = false
             return .Min
@@ -51,7 +51,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBSDKL
 
     func allPermsGranted(perms: Array<String>) -> Bool {
         for perm in self.facebookReadPermissions {
-            if !contains(perms, perm) {
+            if !perms.contains(perm) {
                 return false
             }
         }
@@ -61,24 +61,24 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBSDKL
     // Facebook Delegate Methods
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         if ((error) != nil) {
-            println("Caught error \(error)")
+            print("Caught error \(error)")
         }
         else if result.isCancelled {
-            println("FB login process cancelled")
+            print("FB login process cancelled")
         }
         else {
             // If you ask for multiple permissions at once, you
             // should check if specific permissions missing
             if allPermsGranted(Array(result.grantedPermissions).map({"\($0)"})) {
-                println("Logged into Facebook, all permissions granted.")
+                print("Logged into Facebook, all permissions granted.")
             } else {
-                println("Logged into Facebook, but only granted permissions \(result.grantedPermissions)")
+                print("Logged into Facebook, but only granted permissions \(result.grantedPermissions)")
             }
         }
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        println("User Logged Out")
+        print("User Logged Out")
     }
     
     // Call anytime to retrieve user data.
@@ -86,17 +86,17 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBSDKL
         let profile = FBSDKProfile.currentProfile()
         if profile != nil {
             self.dataModel.setUser(profile)
-            println("fetched user: \(profile.name) ID \(profile.userID)")
+            print("fetched user: \(profile.name) ID \(profile.userID)")
             
             self.loadConnectastic()
         } else {
-            println("Profile is nil!! How comes?")
+            print("Profile is nil!! How comes?")
         }
     }
     
     // This function actually starts loading the Connectastic View, and should only be invoked once Facebook details have been obtained.
     func loadConnectastic() {
-        println("Loading Connectastic main view")
+        print("Loading Connectastic main view")
         
         self.pageViewController = UIPageViewController(transitionStyle: .PageCurl, navigationOrientation: .Horizontal, options: nil)
         self.pageViewController!.delegate = self
@@ -105,8 +105,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBSDKL
         let startingViewController: DataViewController = storyboard!.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
         startingViewController.initialize(dataModel);
         
-        let viewControllers: NSArray = [startingViewController]
-        self.pageViewController!.setViewControllers(viewControllers as [AnyObject], direction: .Forward, animated: false, completion: {done in })
+        let viewControllers = [startingViewController]
+        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
 
         self.addChildViewController(self.pageViewController!)
         self.view.addSubview(self.pageViewController!.view)

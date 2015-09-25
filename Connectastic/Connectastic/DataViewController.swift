@@ -7,7 +7,7 @@ class DataViewController: UIViewController, FBSDKLoginButtonDelegate {
     var dataModel: DataModel? // Make this optional; we will initialize later
 
     override func viewDidLoad() {
-        println("Loaded DataViewController")
+        print("Loaded DataViewController")
         super.viewDidLoad()
         
         // TODO Do this using the designer, not in code
@@ -26,7 +26,7 @@ class DataViewController: UIViewController, FBSDKLoginButtonDelegate {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        println("viewWillAppear() hit.")
+        print("viewWillAppear() hit.")
         if let user = self.dataModel?.user {
             dataLabel.text = "Welcome, " + user.name
 //            fbProfilePicView.hidden = false
@@ -36,7 +36,7 @@ class DataViewController: UIViewController, FBSDKLoginButtonDelegate {
         } else {
 //            fbProfilePicView.hidden = true
             dataLabel.hidden = true
-            println("fbUser not set!  How did we get here?")
+            print("fbUser not set!  How did we get here?")
         }
     }
     
@@ -62,18 +62,18 @@ class DataViewController: UIViewController, FBSDKLoginButtonDelegate {
             let request = GTLAuthConnectasticAuthReq()
             let dm = self.dataModel!
 
-            request.fbId = dm.user?.userID.toInt()
+            request.fbId = Int((dm.user?.userID!)!)
             request.token = dm.fbToken
             
             let query = GTLQueryAuth.queryForLoginWithObject(request) as! GTLQueryAuth
             
             service.executeQuery(query, completionHandler: { (ticket: GTLServiceTicket!, rsp: AnyObject!, error: NSError!) -> Void in
                 if error != nil {
-                    println("ExecuteQuery: result is nil")
+                    print("ExecuteQuery: result is nil")
                     return
                 }
                 let result = rsp as! GTLAuthConnectasticAuthRsp
-                println("\(result.name) has logged into Connectastic. Status: \(result.loggedIn)")
+                print("\(result.name) has logged into Connectastic. Status: \(result.loggedIn)")
             })
         }
     }
@@ -81,14 +81,14 @@ class DataViewController: UIViewController, FBSDKLoginButtonDelegate {
     //Store the fb token of the current session in the data model
     func saveFbToken() {
         let token = FBSDKAccessToken.currentAccessToken().tokenString
-        println("Current session token:  \(token)")
+        print("Current session token:  \(token)")
         dataModel!.setFbToken(token)
         loginToConnectastic()
     }
     
     // Facebook Delegate Methods
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        println("How did we get here?")
+        print("How did we get here?")
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {

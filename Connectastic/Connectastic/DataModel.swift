@@ -9,7 +9,7 @@ class DataModel {
     var fbToken: String?
     
     init() {
-        println("Constructed a data model")
+        print("Constructed a data model")
     }
     
     func setUser(user: FBSDKProfile) {
