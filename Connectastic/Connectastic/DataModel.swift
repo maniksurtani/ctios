@@ -1,11 +1,3 @@
-//
-//  ModelController.swift
-//  Connectastic
-//
-//  Created by Manik Surtani on 10/23/14.
-//  Copyright (c) 2014 Manik Surtani. All rights reserved.
-//
-
 import UIKit
 
 // The Model object.  This contains all of the data for a given Connectastic session, while the DataViewController does the hard 
@@ -13,19 +5,18 @@ import UIKit
 // screen and initializes everything), and may populate parts of this model as well.
 
 class DataModel {
-    var fbUser: FBGraphUser?
+    var user: FBSDKProfile?
     var fbToken: String?
     
     init() {
         println("Constructed a data model")
     }
     
-    func setFbUser(fbUser: FBGraphUser) {
-        self.fbUser = fbUser
+    func setUser(user: FBSDKProfile) {
+        self.user = user
     }
     
     func setFbToken(fbtoken: String){
         self.fbToken = fbtoken
     }
 }
-

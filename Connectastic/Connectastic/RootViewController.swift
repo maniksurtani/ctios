@@ -1,27 +1,30 @@
-//
-//  RootViewController.swift
-//  Connectastic
-//
-//  Created by Manik Surtani on 10/23/14.
-//  Copyright (c) 2014 Manik Surtani. All rights reserved.
-//
 import UIKit
 
-class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLoginViewDelegate {
+class RootViewController: UIViewController, UIPageViewControllerDelegate, FBSDKLoginButtonDelegate {
     let dataModel = DataModel()
     var pageViewController: UIPageViewController?
-    @IBOutlet var fbLoginView : FBLoginView!
+    let facebookReadPermissions = ["public_profile", "email", "user_friends"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Loaded RootVC - waiting for FB login.")
+        // Necessary to ensure profile details are kept up to date. See http://stackoverflow.com/questions/29292371/facebook-sdk-v4-0-for-ios-fbsdkprofile-currentprofile-not-being-set
+        FBSDKProfile.enableUpdatesOnAccessTokenChange(true)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "fetchUserData:", name:FBSDKProfileDidChangeNotification, object: nil)
+
+        // Do any additional setup after loading the view, typically from a nib.
         
-        // This is our main entry point.  Load the View as defined in the storyboard, which displays the splash screen + the FB login button, and don't do anything until the user logs in.
-        // We will be notified of the user having logged in by the loginViewShowingLoggedInUser() and loginViewFetchedUserInfo() callbacks, defined in FBLoginViewDelegate which we implement here.
-        // See implementations of these functions below for details.
+        // TODO(manik): remove when actually building. This forces FB logout every time the app launches.
+        FBSDKLoginManager().logOut()
         
-        self.fbLoginView.delegate = self
-        self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            // User is already logged in, do work such as go to next view controller.
+        } else {
+            let loginView = FBSDKLoginButton()
+            self.view.addSubview(loginView)
+            loginView.center = CGPoint(x: self.view.center.x, y: self.view.center.y + 200)
+            loginView.readPermissions = self.facebookReadPermissions
+            loginView.delegate = self
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,37 +48,55 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLogi
         // Still return .Min for now; if we want to do something clever with the UI (split pane view, etc) in Landscape mode, then we could return .Mid instead.
         return .Min
     }
-    
+
+    func allPermsGranted(perms: Array<String>) -> Bool {
+        for perm in self.facebookReadPermissions {
+            if !contains(perms, perm) {
+                return false
+            }
+        }
+        return true
+    }
     
     // Facebook Delegate Methods
-    
-    func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
-        println("User Logged In")
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        if ((error) != nil) {
+            println("Caught error \(error)")
+        }
+        else if result.isCancelled {
+            println("FB login process cancelled")
+        }
+        else {
+            // If you ask for multiple permissions at once, you
+            // should check if specific permissions missing
+            if allPermsGranted(Array(result.grantedPermissions).map({"\($0)"})) {
+                println("Logged into Facebook, all permissions granted.")
+            } else {
+                println("Logged into Facebook, but only granted permissions \(result.grantedPermissions)")
+            }
+        }
     }
     
-    func loginViewFetchedUserInfo(loginView : FBLoginView!, user: FBGraphUser) {
-        println("User: \(user)")
-        println("User ID: \(user.objectID)")
-        println("User Name: \(user.name)")
-        var userEmail = user.objectForKey("email") as! String
-        println("User Email: \(userEmail)")
-        
-        loadConnectastic(user)
-    }
-    
-    func loginViewShowingLoggedOutUser(loginView : FBLoginView!) {
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         println("User Logged Out")
     }
     
-    func loginView(loginView : FBLoginView!, handleError:NSError) {
-        println("Error: \(handleError.localizedDescription)")
+    // Call anytime to retrieve user data.
+    func fetchUserData(notification: NSNotification) {
+        let profile = FBSDKProfile.currentProfile()
+        if profile != nil {
+            self.dataModel.setUser(profile)
+            println("fetched user: \(profile.name) ID \(profile.userID)")
+            
+            self.loadConnectastic()
+        } else {
+            println("Profile is nil!! How comes?")
+        }
     }
- 
+    
     // This function actually starts loading the Connectastic View, and should only be invoked once Facebook details have been obtained.
-    func loadConnectastic(fbUser: FBGraphUser) {
+    func loadConnectastic() {
         println("Loading Connectastic main view")
-        
-        dataModel.setFbUser(fbUser)
         
         self.pageViewController = UIPageViewController(transitionStyle: .PageCurl, navigationOrientation: .Horizontal, options: nil)
         self.pageViewController!.delegate = self
