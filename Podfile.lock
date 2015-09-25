@@ -21,6 +21,8 @@ PODS:
     - FBSDKCoreKit
 
 DEPENDENCIES:
+  - Bolts (~> 1.3.0)
+  - Bolts/AppLinks (~> 1.3.0)
   - Connectastic (from `./Connectastic-Endpoints`)
   - FBSDKCoreKit (~> 4.6.0)
   - FBSDKLoginKit (~> 4.6.0)
