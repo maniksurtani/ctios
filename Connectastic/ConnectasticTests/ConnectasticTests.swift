@@ -1,11 +1,3 @@
-//
-//  ConnectasticTests.swift
-//  ConnectasticTests
-//
-//  Created by Manik Surtani on 10/23/14.
-//  Copyright (c) 2014 Manik Surtani. All rights reserved.
-//
-
 import UIKit
 import XCTest
 
