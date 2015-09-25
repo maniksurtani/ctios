@@ -1,1 +1,0 @@
-../../../../Connectastic-Endpoints/GTLBatchQuery.h

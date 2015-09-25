@@ -1,1 +1,0 @@
-../../../../Connectastic-Endpoints/GTLAuthConnectasticAuthRsp.h
