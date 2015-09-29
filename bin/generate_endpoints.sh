@@ -17,9 +17,10 @@ if [ -d ".git" ] ; then
     echo "*********************************************************************"
     echo "Endpoint definitions downloaded and stubs built. You need to:"
     echo "   1. Check for any FAILs in the messages above."
-    echo "   2. Build and test the app with the new client libs."
-    echo "   3. Commit any of the newly generated files."
-    echo "*********************************************************************"    
+    echo "   2. Re-import your CocoaPods by running 'pod install'"
+    echo "   3. Build and test the app with the new client libs."
+    echo "   4. Commit any of the newly generated files."
+    echo "*********************************************************************"
   else
     echo "FATAL: Checkout 'connectastic-web' first. Needs to be under the same parent directory as 'connectastic-ios'."
   fi
