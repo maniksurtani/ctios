@@ -22,7 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // let's make sure that the Facebook SDK only sees URLs intended for it,
         // Facebook has enough info already!
         
-        let isFacebookURL = url.scheme.hasPrefix("fb\(FBSDKSettings.appID())") && url.host == "authorize"
+        var hostChecked = true
+        if let host = url.host {
+            hostChecked = host == "authorize"
+        } else {
+            // Host isn't set - assume it's correct
+        }
+        
+        let isFacebookURL = url.scheme.hasPrefix("fb\(FBSDKSettings.appID())") && hostChecked
         if isFacebookURL {
             return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         }
