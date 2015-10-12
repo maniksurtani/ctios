@@ -1,6 +1,7 @@
 # Connectastic iOS
 
 * Written using [XCode 7.0](https://developer.apple.com/xcode/).  Could use [Jetbrains AppCode](https://www.jetbrains.com/objc/) instead.
+* Built using [XCTool](https://github.com/facebook/xctool). You **NEED** xctool >= 2.6 to be able to run tests via the command line. Install xctool using brew. Run tests on the command line using `bin/test.sh`. 
 * Using [CocoaPods](http://cocoapods.org/) to manage dependencies.  See `Podfile` in this directory.
 * See [The CocoaPod Guide](http://guides.cocoapods.org/) to learn how to use Cocoapods.
 * Learning Swift and iOS development using [this tutorial](https://www.bloc.io/tutorials/swiftris-build-your-first-ios-game-with-swift#!/chapters/675).  The [Swift Language Guide](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) is helpful too.
