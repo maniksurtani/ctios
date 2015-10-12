@@ -8,3 +8,6 @@ pod "Connectastic", :path => './Connectastic-Endpoints', :tag => '0.0.1'
 pod 'FBSDKCoreKit', '~> 4.6.0'
 pod 'FBSDKLoginKit', '~> 4.6.0'
 pod 'FBSDKShareKit', '~> 4.6.0'
+
+link_with 'Connectastic', 'ConnectasticTests'
+

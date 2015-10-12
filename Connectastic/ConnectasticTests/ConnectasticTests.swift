@@ -1,5 +1,7 @@
 import UIKit
 import XCTest
+// Use @testable! http://natashatherobot.com/swift-2-xcode-7-unit-testing-access/
+@testable import Connectastic
 
 class ConnectasticTests: XCTestCase {
     
@@ -23,6 +25,16 @@ class ConnectasticTests: XCTestCase {
         self.measureBlock() {
             // Put the code you want to measure the time of here.
         }
+    }
+    
+    func testDataModel() {
+        let model = DataModel()
+        XCTAssertNil(model.user)
+        XCTAssertNil(model.fbToken)
+    }
+    
+    func testFailure() {
+        XCTAssertNotEqual(1, 1) // Will fail.
     }
     
 }
