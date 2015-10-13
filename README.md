@@ -18,3 +18,16 @@ The Endpoints client is generated. To generate the client, run:
 ```
 
 and follow instructions.
+
+## Continuous Integration
+
+We're using [GreenHouseCI](http://greenhouseci.com/index.html) for continuous testing, build and deploy of the iOS app.
+
+### Credentials
+In case you need to log in to GreenHouseCI:
+* Username: `robot@connectastic.com`
+* Password: `connectast1c`
+ 
+## iTunes
+iTunes account used to publish: `manik@surtani.org`. Please ask Manik for certs if you need to connect.
+
