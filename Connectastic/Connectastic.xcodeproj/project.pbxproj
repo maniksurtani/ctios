@@ -228,6 +228,7 @@
 				TargetAttributes = {
 					9C2132C519F9ABEE0061B553 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 9RQV9VDBT8;
 					};
 					9C2132DE19F9ABEF0061B553 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -496,6 +497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Connectastic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -512,6 +514,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Connectastic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
