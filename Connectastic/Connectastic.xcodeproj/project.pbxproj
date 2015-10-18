@@ -228,7 +228,7 @@
 				TargetAttributes = {
 					9C2132C519F9ABEE0061B553 = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = 9RQV9VDBT8;
+						DevelopmentTeam = UFK5A4SKAG;
 					};
 					9C2132DE19F9ABEF0061B553 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -503,7 +503,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.connectastic.Connectastic;
+				PRODUCT_BUNDLE_IDENTIFIER = Icom.connectastic.app.Connectastic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = Connectastic/BridgingHeader.h;
 			};
@@ -521,7 +521,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.connectastic.Connectastic;
+				PRODUCT_BUNDLE_IDENTIFIER = Icom.connectastic.app.Connectastic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = Connectastic/BridgingHeader.h;
 			};
