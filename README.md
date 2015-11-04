@@ -1,6 +1,7 @@
 # Connectastic iOS
 
-* Written using [XCode 7.0](https://developer.apple.com/xcode/).  Could use [Jetbrains AppCode](https://www.jetbrains.com/objc/) instead.
+* Written using [XCode 7.1](https://developer.apple.com/xcode/).
+* You need XCode Command Line Tools. Install by typing `xcode-select --install` in a terminal window.
 * Built using [XCTool](https://github.com/facebook/xctool). You **NEED** xctool >= 2.6 to be able to run tests via the command line. Install xctool using brew. Run tests on the command line using `bin/test.sh`. 
 * Using [CocoaPods](http://cocoapods.org/) to manage dependencies.  See `Podfile` in this directory.
 * See [The CocoaPod Guide](http://guides.cocoapods.org/) to learn how to use Cocoapods.
